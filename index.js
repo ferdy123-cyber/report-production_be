@@ -12,12 +12,14 @@ const mBarangRoute = require("./route/mBarang");
 const mDefectRoute = require("./route/mDefect");
 const reportOk = require("./route/reportOk");
 const reportNg = require("./route/reportNg");
+const reportExcel = require("./route/reportExcel");
 
 app.use("/auth", authRoute);
 app.use("/mBarang", mBarangRoute);
 app.use("/mDefect", mDefectRoute);
 app.use("/reportOk", reportOk);
 app.use("/reportNg", reportNg);
+app.use("/reportExcel", reportExcel);
 
 app.use((error, req, res, next) => {
   return res.status(400).send({

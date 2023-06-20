@@ -32,7 +32,21 @@ const create = async (req, res, next) => {
     }', '${mBarang[0][0].part_number}', '${mDefect[0][0].kode_defect}', '${
       mDefect[0][0].nama_defect
     }', '${moment().format("MM")}', '${moment().format("YYYY")}')`;
+    const sql2 = `INSERT INTO report_excel (report_excel_id, part_no, part_name, lot, shift, box_no, ok_qty, ng_qty, black_dot, contamination, dirty, flash, white_mark, broken, bulan, tahun) VALUES ('${v4()}','${
+      mBarang[0][0].part_number
+    }', '${
+      mBarang[0][0].part_name
+    }', '${lot}', 'null', '${box}', '0', '${ng_qty}', '${
+      mDefect[0][0].nama_defect == "Black Dot" ? ng_qty : 0
+    }', '${mDefect[0][0].nama_defect == "Contamination" ? ng_qty : 0}', '${
+      mDefect[0][0].nama_defect == "Dirty" ? ng_qty : 0
+    }', '${mDefect[0][0].nama_defect == "Flash" ? ng_qty : 0}', '${
+      mDefect[0][0].nama_defect == "White Mark" ? ng_qty : 0
+    }', '${
+      mDefect[0][0].nama_defect == "Broken" ? ng_qty : 0
+    }', '${moment().format("MM")}', '${moment().format("YYYY")}')`;
     await request.query(sql);
+    await request.query(sql2);
     res.status(200).send({
       message: "input report ng berhasil",
     });
